@@ -1,3 +1,32 @@
+# name: My First GitHub Actions
+
+# on: [push]
+
+# jobs:
+#   build:
+#     runs-on: self-hosted
+
+#     # strategy:
+#     #   matrix:
+#     #     python-version: ["3.9", "3.10", "3.11"]
+
+#     steps:
+#     - uses: actions/checkout@v3
+#     # - name: Set up Python
+#     #   uses: actions/setup-python@v5
+#     #   with:
+#     #     python-version: "3.14"
+
+#     - name: Install dependencies
+#       run: |
+#        python3 -m pip install --upgrade pip
+#        python3 -m pip install pytest
+
+#     - name: Run tests
+#       run: |
+#         cd src
+#         python3 -m pytest addition.py
+
 name: My First GitHub Actions
 
 on: [push]
@@ -6,23 +35,21 @@ jobs:
   build:
     runs-on: self-hosted
 
-    # strategy:
-    #   matrix:
-    #     python-version: ["3.9", "3.10", "3.11"]
-
     steps:
-    - uses: actions/checkout@v3
-    # - name: Set up Python
-    #   uses: actions/setup-python@v5
-    #   with:
-    #     python-version: "3.14"
+      - uses: actions/checkout@v3
 
-    - name: Install dependencies
-      run: |
-       python3 -m pip install --upgrade pip
-       python3 -m pip install pytest
+      - name: Create virtual environment
+        run: |
+          python3 -m venv venv
 
-    - name: Run tests
-      run: |
-        cd src
-        python3 -m pytest addition.py
+      - name: Activate venv + install dependencies
+        run: |
+          source venv/bin/activate
+          pip install --upgrade pip
+          pip install pytest
+
+      - name: Run tests
+        run: |
+          source venv/bin/activate
+          cd src
+          pytest addition.py
