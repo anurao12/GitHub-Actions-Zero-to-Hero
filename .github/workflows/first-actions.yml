@@ -6,23 +6,23 @@ jobs:
   build:
     runs-on: self-hosted
 
-    strategy:
-      matrix:
-        python-version: ["3.9", "3.10", "3.11"]
+    # strategy:
+    #   matrix:
+    #     python-version: ["3.9", "3.10", "3.11"]
 
     steps:
     - uses: actions/checkout@v3
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: "3.14"
+    # - name: Set up Python
+    #   uses: actions/setup-python@v5
+    #   with:
+    #     python-version: "3.14"
 
     - name: Install dependencies
       run: |
-       python3.9 -m pip install --upgrade pip
-       python3.9 -m pip install pytest
+       python3 -m pip install --upgrade pip
+       python3 -m pip install pytest
 
     - name: Run tests
       run: |
         cd src
-        python -m pytest addition.py
+        python3 -m pytest addition.py
